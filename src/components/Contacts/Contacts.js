@@ -1,18 +1,19 @@
 import React from 'react'
-import {Grid, Typography, Icon} from '@material-ui/core'
+import {Grid, Typography} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import {SocialIcon} from 'react-social-icons'
-import {Phone, Mail} from '@material-ui/icons'
+import {Mail} from '@material-ui/icons'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
         background: "url(https://image.freepik.com/free-photo/empty-red-brick-wall_53876-31790.jpg) no-repeat",
         backgroundSize: 'cover'
-    },
+        },
     grid: {
-        height: "100vh",
+        minHeight: "100vh",
         width: '100%',
+        paddingTop: theme.mixins.toolbar.minHeight,
         background: 'rgba(0,0,0,0.8)'
     },
     headline: {
@@ -20,10 +21,7 @@ const useStyles = makeStyles({
         textAlign: 'center',
         fontWeight: 100,
         color: 'lightpink',
-        textShadow: "0 0 10px pink,\
-                    0 0 20px orangered,\
-                    0 0 40px red,\
-                    0 0 80px magenta"
+        textShadow: "0 0 10px pink, 0 0 20px orangered, 0 0 40px red, 0 0 80px magenta"
 
     },
     icon: {
@@ -42,12 +40,12 @@ const useStyles = makeStyles({
         textAlign: 'center'
     }
 
-})
+}))
 
 const Contacts = () => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div id="contacts" className={classes.root}>
             <Grid container 
                 direction="row" 
                 justify="space-around" 

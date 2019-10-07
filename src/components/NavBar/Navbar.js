@@ -5,10 +5,13 @@ import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import {CodeTwoTone, ArrowForward, Person} from '@material-ui/icons'
+// import { ThemeProvider } from '@material-ui/styles'
 
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
+        backgroundColor: theme.palette.secondary.dark,
+        marginBottom: -theme.mixins.toolbar.minHeight
     },
     title: {
         flexGrow: 1,
@@ -21,27 +24,30 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+// const theme = createMuiTheme({
+
+// });
 
 const NavBar = () => {
     const classes = useStyles();
     return (
-        <AppBar position="static" color="primary" className={classes.root}>
+        <AppBar position="sticky" className={classes.root} shadow={3}>
             <Toolbar>
                 <Typography variant="title" color="inherit" className={classes.title}>
                     <Person /><ArrowForward /><CodeTwoTone />
                 </Typography>
                 <Typography className={classes.links}>
-                    <Button color="inherit">
+                    <Button color="inherit" href="#resume">
                         Resume
                     </Button>
                 </Typography>
                 <Typography className={classes.links}>
-                    <Button color="inherit">
+                    <Button color="inherit" href="#work">
                         Work
                     </Button>
                 </Typography>
                 <Typography className={classes.links}>
-                    <Button color="inherit">
+                    <Button color="inherit" href="#contacts">
                         Contacts
                     </Button>
                 </Typography>

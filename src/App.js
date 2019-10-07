@@ -5,8 +5,6 @@ import Hero from './components/Hero'
 import Resume from './components/Resume'
 import Contacts from "./components/Contacts"
 
-import './App.css';
-
 function App() {
   return (
     <>

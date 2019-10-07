@@ -1,6 +1,7 @@
-import React from "react";
+import React from "react"
+import clsx from 'clsx'
 import {Grid} from "@material-ui/core"
-import {teal, lime, blue, cyan} from '@material-ui/core/colors'
+import {lime, blue} from '@material-ui/core/colors'
 import {makeStyles} from "@material-ui/core/styles"
 
 const useCellStyles = makeStyles({
@@ -106,7 +107,7 @@ export default class Game extends React.Component {
   };
 
   checkGameOver = async (g1, g2) => {
-    if (JSON.stringify(g1) == JSON.stringify(g2)) {
+    if (JSON.stringify(g1) === JSON.stringify(g2)) {
       this.stopGame();
       this.playRandom();
       // this.startGame();
@@ -191,7 +192,7 @@ const GameCell = (props) => {
     const {status} = props;
   
     return (
-        <div className={classes.root, status ? classes.alive : classes.dead} 
+        <div className={clsx(classes.root, status ? classes.alive : classes.dead)}
         style={{width: '0.5rem', height: '0.5rem'}}/>    
     );
   }

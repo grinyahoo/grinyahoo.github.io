@@ -1,6 +1,7 @@
 import React from 'react'
-import {Grid, Container, Paper, Typography, Link, List, ListItem, ListItemText, ListItemIcon, Icon} from '@material-ui/core'
-import {WorkOutlineRounded, NoteOutlined} from '@material-ui/icons'
+import {Grid, Container, Paper, Typography, Link, List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core'
+import {WorkOutlineRounded} from '@material-ui/icons'
+import {makeStyles} from '@material-ui/core/styles'
 
 
 const skills = [
@@ -48,9 +49,16 @@ const experience = [
 ]
 
 
+const useStyles = makeStyles(theme => ({
+    root: {
+        paddingTop: theme.mixins.toolbar.minHeight
+    }
+}))
+
 const Resume = () => {
+    const classes = useStyles()
     return(
-        <Container>
+        <Container id="resume" className={classes.root}>
             <Grid container
                 direction="column"
                 spacing={5}

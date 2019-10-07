@@ -1,12 +1,14 @@
 import React from 'react'
+import clsx from 'clsx'
 import Game from '../Game'
 import {makeStyles} from '@material-ui/core/styles'
-import {Container, Grid, Typography} from '@material-ui/core/'
+import {Grid, Typography} from '@material-ui/core/'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     hero: {
         height: '100vh',
-        width: '100%',
+        width: '100vw',
+        paddingTop: -theme.mixins.toolbar.minHeight
     },
     heroBaseImage: {
         background: "black url('/29088.jpg') no-repeat fixed center",
@@ -20,15 +22,15 @@ const useStyles = makeStyles({
         borderRadius: '1em'
         
     }
-}) 
+})) 
 
 const Hero = () => {
 
     const classes = useStyles();
 
     return (
-        <Grid className={classes.hero, classes.heroBaseImage}>
-            <Grid className={classes.hero, classes.heroOverlay}>
+        <Grid className={clsx(classes.hero, classes.heroBaseImage)}>
+            <Grid className={clsx(classes.hero, classes.heroOverlay)}>
                 <Grid container
                 direction="column"
                 justify="center"
