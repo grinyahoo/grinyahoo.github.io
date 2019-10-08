@@ -1,4 +1,5 @@
 import React from 'react'
+import uuid from 'react-uuid'
 import {Grid, Container, Paper, Typography, Link, List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core'
 import {WorkOutlineRounded} from '@material-ui/icons'
 import {makeStyles} from '@material-ui/core/styles'
@@ -51,7 +52,9 @@ const experience = [
 
 const useStyles = makeStyles(theme => ({
     root: {
-        paddingTop: theme.mixins.toolbar.minHeight
+        paddingTop: theme.mixins.toolbar.minHeight,
+        paddingBottom: "1em",
+        backgroundColor: 'cornsilk'
     }
 }))
 
@@ -72,14 +75,19 @@ const Resume = () => {
                 </Grid>
                 <Grid item>
                     <Paper>
-                        <Grid container justify="left" alignItems="flex-start" style={{padding: '1em'}}>
-                            <Grid item xs={12} sm={3} justify="center" alignContent="flex-start" style={{padding: '1em'}}>
+                        <Grid container justify="flex-start" alignItems="flex-start" style={{padding: '1em'}}>
+                            <Grid item xs={12} sm={3} style={{padding: '1em'}}>
                                 <Typography variant="h6" component="p" color="primary" style={{paddingBottom: "1em"}}>
                                 SKILLS
                                 </Typography>
-                                <Typography component="p" color="secondary">  
+                                <Typography component="div" color="secondary">  
                                     <Grid container>
-                                    {skills.map(skill => <Grid item sm={12}><Typography variant="body2">{skill}</Typography></Grid>)}
+                                    {skills.map(skill => 
+                                        <Grid item sm={12} key={uuid()}>
+                                            <Typography variant="body2">
+                                                {skill}
+                                            </Typography>
+                                        </Grid>)}
                                     </Grid>      
                                 
                                 </Typography>
@@ -88,17 +96,24 @@ const Resume = () => {
                                 <Typography variant="h6" component='p' color="primary" style={{paddingBottom: "1em"}}>
                                 EXPERIENCE
                                 </Typography>
-                                <Typography component="p">
+                                <Typography component="div">
                                     <List>
                                         {experience.map(expa => 
-                                        <React.Fragment>
-                                            <ListItem>
+                                        <React.Fragment key={uuid()}>
+                                            <ListItem key={uuid()}>
                                                 <ListItemIcon><WorkOutlineRounded /></ListItemIcon>
                                                 <ListItemText primary={[expa.position, expa.company].join(', ')} 
                                                     secondary={expa.timeframe} 
                                                     />
                                             </ListItem>
-                                            {expa.highlights.map(hl => <Typography variant="body2" component='p'>{hl}</Typography>)}
+                                            {expa.highlights.map(hl => 
+                                                <Typography variant="body2" 
+                                                    component='div'
+                                                    key={uuid()}
+                                                >
+                                                {hl}
+                                                </Typography>
+                                            )}
                                             <Typography variant="body2">{expa.links.join(', ')}</Typography>
                                         </React.Fragment>
                                         )}

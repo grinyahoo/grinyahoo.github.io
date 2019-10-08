@@ -1,15 +1,10 @@
 import React from 'react'
+import uuid from 'react-uuid'
 import {makeStyles} from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
+import {Container, Grid, TextField, Typography} from '@material-ui/core'
 import Product from '../Product/'
-import {Search} from '@material-ui/icons'
-
 import * as contentful from 'contentful'
-import { Typography } from '@material-ui/core'
-// import { recomposeColor } from '@material-ui/core/styles'
+import {ReactComponent as NoResultsIcon} from './noResults.svg'
 
 const SPACE_ID = 'm4kbluxcylua'
 const ACCESS_TOKEN = '2yVsShir-bF4BVXN34yEtS-gcmTNwCO8U-XLLu53StE'
@@ -23,8 +18,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         minHeight: '100vh',
         paddingTop: theme.mixins.toolbar.minHeight,
-        justifyItems: 'center',
-        alignItems: 'center'
+        backgroundColor: 'cornsilk'
     },
     noResults: {
         justifyContent: 'center',
@@ -33,8 +27,12 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center'
     },
     icon: {
-        width: 24,
-        height:24
+        width: 100,
+        height: 100
+    },
+    product: {
+        width: '50vh',
+        height: '50vh'
     }
 }))
 
@@ -96,16 +94,20 @@ const ProductListDummy = (props) => {
                     onChange={props.onSearchInputChange}
                 />
                 {products.length ? (
-                <Grid container spacing={0}>
+                <Grid container spacing={0} justify="center">
                     {products.map(c_product => (
-                        <Grid item xs={12} sm={6} lg={4}>
+                        <Grid item className={classes.product} key={uuid()}>
                             <Product product={c_product} />
                         </Grid>
                     ))}
 
                 </Grid>
             ) : <Container className={classes.noResults}>
-                    <Typography variant="body" 
+                    <Typography component="p">
+                        <NoResultsIcon className={classes.icon} />
+                    </Typography>
+
+                    <Typography variant="body1" 
                         gutterBottom={true} 
                         component="p"
                         color="textSecondary"

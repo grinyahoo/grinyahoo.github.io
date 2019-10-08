@@ -1,4 +1,5 @@
 import React from "react"
+import uuid from 'react-uuid'
 import clsx from 'clsx'
 import {Grid} from "@material-ui/core"
 import {lime, blue} from '@material-ui/core/colors'
@@ -18,12 +19,6 @@ const useCellStyles = makeStyles({
   },
   dead: {
     backgroundColor: 'transparent'
-  }
-})
-
-const useGameStyles = makeStyles({
-  root: {
-    opacity: 0.8
   }
 })
 
@@ -201,13 +196,13 @@ const GameGridRow = (props) => {
     const renderGrid = props.grid.map((row, i) => {
       const gridRow = row.map((col, j) => {
         return (
-          <Grid item>
+          <Grid item key={uuid()}>
             <GameCell key={i + "_" + j} status={col} />
           </Grid>
         );
       });
-      return <Grid container direction="row">{gridRow}</Grid>;
+      return <Grid container key={uuid()} direction="row">{gridRow}</Grid>;
     });
 
-    return <Grid item>{renderGrid}</Grid>;
+    return <Grid item key={uuid()}>{renderGrid}</Grid>;
   }
