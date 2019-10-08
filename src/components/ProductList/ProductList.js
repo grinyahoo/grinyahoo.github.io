@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         minHeight: '100vh',
         paddingTop: theme.mixins.toolbar.minHeight,
+        paddingBottom: '3em',
         backgroundColor: 'cornsilk'
     },
     noResults: {
@@ -31,8 +32,8 @@ const useStyles = makeStyles(theme => ({
         height: 100
     },
     product: {
-        width: '50vh',
-        height: '50vh'
+        width: '60vh',
+        height: '60vh'
     }
 }))
 
@@ -86,13 +87,7 @@ const ProductListDummy = (props) => {
     return (
         <div id="work" className={classes.root}>
             
-            
-                <TextField style={{padding:24}} 
-                    id="searchInput"
-                    placeholder="Search"
-                    margin="normal"
-                    onChange={props.onSearchInputChange}
-                />
+                <Typography variant="h6" component="div" style={{padding: '2em 1em 1em 1em'}}>Recent work</Typography>
                 {products.length ? (
                 <Grid container spacing={0} justify="center">
                     {products.map(c_product => (

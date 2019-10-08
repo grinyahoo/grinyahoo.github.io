@@ -8,10 +8,10 @@ const useStyles = makeStyles(theme => ({
       border: 0,
       borderRadius: 0,
       boxShadow: 0,
-      cursor: 'pointer',
       overflow: 'hidden',
       transitionDuration: '1s',
       filter: "sepia(20%)",
+      position: 'relative',
       padding: 0,
       "&:hover": {
           filter: 'sepia(0%)'
