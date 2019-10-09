@@ -4,6 +4,7 @@ import ProductList from './components/ProductList/'
 import Hero from './components/Hero'
 import Resume from './components/Resume'
 import Contacts from "./components/Contacts"
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <Hero />
       <Resume />
       <ProductList />
-      <Contacts />
+      {/* <Contacts /> */}
+      <Footer />
     </>
   );
 }
