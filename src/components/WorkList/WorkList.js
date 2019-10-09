@@ -16,7 +16,6 @@ const client  = contentful.createClient({
 
 const useStyles = makeStyles(theme => ({
     root: {
-        minHeight: '100vh',
         paddingTop: theme.mixins.toolbar.minHeight,
         paddingBottom: '3em',
         paddingLeft: '0.5em',
