@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         minHeight: '100vh',
         paddingTop: theme.mixins.toolbar.minHeight,
         paddingBottom: '3em',
-        backgroundColor: 'cornsilk'
+        backgroundColor: theme.palette.background.default
     },
     noResults: {
         justifyContent: 'center',
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-class ProductList extends React.Component {
+class WorkList extends React.Component {
 
     constructor(props) {
         super(props);
@@ -75,19 +75,19 @@ class ProductList extends React.Component {
 
     render() {
         return (
-            <ProductListDummy products={this.state.products} 
+            <WorkListDummy products={this.state.products} 
                 onSearchInputChange={this.onSearchInputChange} />
         )
     }
 }
 
-const ProductListDummy = (props) => {
+const WorkListDummy = (props) => {
     const {products} = props
     const classes = useStyles()
     return (
         <div id="work" className={classes.root}>
             
-                <Typography variant="h6" component="div" style={{padding: '2em 1em 1em 1em'}}>Recent work</Typography>
+                <Typography variant="button" component="div" style={{padding: '2em 1em 1em 1em'}}>Recent work</Typography>
                 {products.length ? (
                 <Grid container spacing={0} justify="center">
                     {products.map(c_product => (
@@ -115,4 +115,4 @@ const ProductListDummy = (props) => {
     )
 }
 
-export default ProductList;
+export default WorkList;

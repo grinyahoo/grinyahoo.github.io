@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from './components/NavBar/'
-import ProductList from './components/ProductList/'
+import WorkList from './components/WorkList/'
 import Hero from './components/Hero'
 import Resume from './components/Resume'
 import Contacts from "./components/Contacts"
@@ -12,7 +12,7 @@ function App() {
       <NavBar />
       <Hero />
       <Resume />
-      <ProductList />
+      <WorkList />
       {/* <Contacts /> */}
       <Footer />
     </>
