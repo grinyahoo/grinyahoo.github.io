@@ -1,5 +1,6 @@
 {
-  "name": "react-material-ui",
+  "name": "homepage",
+  "homepage": "https://alexgrinevich.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
