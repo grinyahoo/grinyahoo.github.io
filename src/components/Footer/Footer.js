@@ -7,12 +7,16 @@ import {SocialIcon} from 'react-social-icons'
 const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: theme.palette.common.black,
-        padding: '2em'
+        color: theme.palette.primary.contrastText,
+        padding: '2em',
+        textAlign: 'center'
     },
     copyrightBox: {
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: '0.5em',
+        justifyContent: 'center'
     },
     copyrightIcon: {
         marginRight: '.5em',
@@ -20,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     SocialIcon: {
         height: 30,
         width: 30,
-        marginLeft: '1em'
+        margin: '0.5em'
     }
 
 }))
@@ -28,22 +32,20 @@ const useStyles = makeStyles(theme => ({
 const Footer = () => {
     const classes = useStyles()
     return (
-        <AppBar position="relative" className={classes.root}>
+        <Box position="relative" className={classes.root}>
             <Grid container justify="space-between">
-                <Grid item className={classes.copyrightBox}>
-                    
-                        <Copyright className={classes.copyrightIcon} />
-                        <Typography variant="button" display="inline">
-                            2019 Alexander Grinevich.
-                        </Typography>
-                    
-                </Grid>
-                <Grid item>
+                <Grid item xs={12} sm={5}>
                     <SocialIcon url="http://github.com/grinyahoo" className={classes.SocialIcon} />
                     <SocialIcon network="linkedin" url="https://www.linkedin.com/in/a-grinevich/" className={classes.SocialIcon} />
                 </Grid>
+                <Grid item xs={12} sm={5} className={classes.copyrightBox}>
+                    <Copyright className={classes.copyrightIcon} />
+                    <Typography variant="body1" display="inline">
+                        2019 Alexander Grinevich.
+                    </Typography>
+                </Grid>
             </Grid>
-        </AppBar>
+        </Box>
     )
 }
 
