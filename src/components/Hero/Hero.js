@@ -38,7 +38,8 @@ const useStyles = makeStyles(theme => ({
     hero: {
         height: '100vh',
         width: '100vw',
-        paddingTop: -theme.mixins.toolbar.minHeight
+        marginTop: -theme.mixins.toolbar.minHeight,
+        paddingTop: theme.mixins.toolbar.minHeight
     },
     heroBaseImage: {
         background: "black url('/29088.jpg') no-repeat fixed center",
