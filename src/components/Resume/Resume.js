@@ -54,8 +54,9 @@ const useStyles = makeStyles(theme => ({
     root: {
         paddingTop: theme.mixins.toolbar.minHeight,
         paddingBottom: "1em",
-        backgroundColor: 'cornsilk'
-    }
+        backgroundColor: theme.palette.background.default
+    },
+    
 }))
 
 const Resume = () => {
@@ -64,20 +65,19 @@ const Resume = () => {
         <Container id="resume" className={classes.root}>
             <Grid container
                 direction="column"
-                spacing={5}
             >
                 
-                <Grid item>
+                <Grid item style={{paddingBottom: '1em'}}>
                     
-                    <Typography variant='h6' component="div" style={{padding: '2em 1em 0 1em'}}>
-                        Resume / <Link href="/">Downloadable PDF</Link> 
+                    <Typography variant='button' component="div">
+                        RESUME / <Link href="/">DOWNLOADABLE PDF</Link> 
                     </Typography>
                 </Grid>
-                <Grid item>
-                    <Paper>
-                        <Grid container justify="flex-start" alignItems="flex-start" style={{padding: '1em'}}>
-                            <Grid item xs={12} sm={3} style={{padding: '1em'}}>
-                                <Typography variant="h6" component="p" color="primary" style={{paddingBottom: "1em"}}>
+                <Grid item style={{paddingBottom: '1em'}}>
+                    
+                        <Grid container direction="row" justify="center" alignItems="flex-start" >
+                            <Grid item xs={12} sm={3} lg={2} style={{paddingBottom: '1em'}} >
+                                <Typography variant="h6" component="p" color="primary" >
                                 SKILLS
                                 </Typography>
                                 <Typography component="div" color="secondary">  
@@ -92,8 +92,8 @@ const Resume = () => {
                                 
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12} sm={9} style={{padding: '1em'}}>
-                                <Typography variant="h6" component='p' color="primary" style={{paddingBottom: "1em"}}>
+                            <Grid item xs={12} sm={9} lg={6} style={{paddingBottom: '1em'}} >
+                                <Typography variant="h6" component='p' color="primary" >
                                 EXPERIENCE
                                 </Typography>
                                 <Typography component="div">
@@ -122,7 +122,7 @@ const Resume = () => {
 
                             </Grid>
                         </Grid>
-                    </Paper>
+                    
                     
                 </Grid>
             </Grid>
