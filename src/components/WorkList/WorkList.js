@@ -19,6 +19,8 @@ const useStyles = makeStyles(theme => ({
         minHeight: '100vh',
         paddingTop: theme.mixins.toolbar.minHeight,
         paddingBottom: '3em',
+        paddingLeft: '0.5em',
+        paddingRight: '0.5em',
         backgroundColor: theme.palette.background.default
     },
     noResults: {
@@ -87,7 +89,7 @@ const WorkListDummy = (props) => {
     return (
         <div id="work" className={classes.root}>
             
-                <Typography variant="button" component="div" style={{padding: '2em 1em 1em 1em'}}>Recent work</Typography>
+                <Typography variant="button" component="div" style={{padding: '0.5em 1em 1em 1em'}}>Recent work</Typography>
                 {products.length ? (
                 <Grid container spacing={0} justify="center">
                     {products.map(c_product => (
