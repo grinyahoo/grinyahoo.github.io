@@ -19,7 +19,9 @@ const useStyles = makeStyles(theme => ({
     links: {
         // background: "rgba(0,0,0,0.5)"
         marginRight: '1em',
-        marginLeft: '1em'    
+        marginLeft: '1em',
+        flexGrow: 1,
+
     }
 }))
 
@@ -32,9 +34,6 @@ const NavBar = () => {
     return (
         <AppBar position="sticky" className={classes.root} shadow={3}>
             <Toolbar>
-                <Typography color="inherit" className={classes.title}>
-                    <CodeTwoTone />
-                </Typography>
                 <Typography className={classes.links}>
                     <Button color="inherit" href="#resume">
                         Resume
@@ -46,8 +45,8 @@ const NavBar = () => {
                     </Button>
                 </Typography>
                 <Typography className={classes.links}>
-                    <Button color="inherit" href="#contacts">
-                        Contacts
+                    <Button color="inherit" href="#bio" disabled>
+                        Bio
                     </Button>
                 </Typography>
             </Toolbar>
