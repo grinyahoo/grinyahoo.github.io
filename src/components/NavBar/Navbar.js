@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+import {ReactComponent as CupIcon} from './svg/cup.svg'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,6 +28,10 @@ const NavBar = () => {
     const classes = useStyles();
     return (
         <AppBar position="sticky" className={classes.root} shadow={3}>
+            <Toolbar className={classes.title} >
+            <CupIcon />
+            </Toolbar>
+            
             <Toolbar>
                 <Typography className={classes.links}>
                     <Button color="inherit" href="#resume">
