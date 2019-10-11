@@ -82,18 +82,15 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      speed: 1000,
+      speed: 800,
       rows: 23,
       cols: 40,
       generation: 0,
-      // grid: Array(this.rows).fill(Array(this.cols).fill(false))
-      grid: pattern2
     };
-    this.interval = {}
-    this.grid = pattern2
-  }
+    this.grid = pattern2;
+    this.gameOn = true;
 
-  
+  }
 
   arrayDeepCopy = arr => {
     return JSON.parse(JSON.stringify(arr));
@@ -114,39 +111,40 @@ export default class Game extends React.Component {
     }
   };
 
-  prepareGen = () => {return new Promise((resolve, reject) => {
-    const { grid } = this;
-    const next =  grid.map((row, i) => {
-        return row.map((col, j) => {
-          return this.liveOrDie(i,j)
-        })
-    })
-    resolve(next);
-    // setTimeout(resolve(next), 1)
+  stUpd = () => {return new Promise((resolve, reject) => {
+    resolve(this.setState({generation: this.state.generation + 1}))
   })}
 
   nextGen = async () => {
     const { grid } = this;
-    console.log("Next gen called");
-    const t0 = Date.now();
-    const nG =  grid.map((row, i) => {
+    const nG = grid.map((row, i) => {
       return row.map((col, j) => {
         return this.liveOrDie(i,j)
       })
-  })
-
-    // console.log('Next gen called')
-    // const nG = await this.prepareGen();
-    // console.log('Next gen ready');
+    })
 
     this.checkGameOver(grid, nG);
-    console.log(`Next gen op time: ${Date.now() - t0} ms`)
     this.updateGrid(nG);
-    this.setState({generation: this.state.generation + 1})
-    console.log(`w/State upd time: ${Date.now() - t0} ms`)
-    // setTimeout(this.nextGen, this.state.speed)
-    // this.nextGen();
+    await this.stUpd();
   };
+
+  asyncGameDelay = () => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve('resolved');
+      }, this.state.speed);
+    });
+  }
+
+  gameLoop = async () => {
+
+    while (this.gameOn) {
+      await this.asyncGameDelay();
+      this.nextGen();
+    }
+    
+    
+  }
 
   liveOrDie = (row, col) => {
     const { grid } = this;
@@ -170,25 +168,13 @@ export default class Game extends React.Component {
     }
   };
 
-  // clear = () => {
-  //   const newGrid = Array(this.rows).fill(Array(this.cols).fill(false))
-    // this.setState({ grid: newGrid, generation: 0 });
-  // };
-
   stopGame = () => {
-    clearInterval(this.interval);
-  };
-
-  startGame = () => {
-    // this.setState({ interval: setInterval(this.nextGen, this.state.speed) });
-    this.interval = setInterval(this.nextGen, this.state.speed);
-    // this.nextGen();
+    this.gameOn = false;
   };
 
   componentDidMount() {
     this.playRandom();
-    this.startGame();
-    // this.nextGen();
+    this.gameLoop();
   }
 
   render() {
