@@ -7,7 +7,10 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(theme => ({
     root: {
+        display: 'flex',
         flexGrow: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
         marginBottom: -theme.mixins.toolbar.minHeight
     },
     title: {

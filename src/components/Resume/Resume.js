@@ -1,6 +1,6 @@
 import React from 'react'
 import uuid from 'react-uuid'
-import {Grid, Container, Paper, Typography, Link, List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core'
+import {Grid, Container, Typography, Link, List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core'
 import {WorkOutlineRounded} from '@material-ui/icons'
 import {makeStyles} from '@material-ui/core/styles'
 
@@ -70,7 +70,7 @@ const Resume = () => {
                 <Grid item style={{paddingBottom: '1em'}}>
                     
                     <Typography variant='button' component="div">
-                        RESUME / <Link href="/">DOWNLOADABLE PDF</Link> 
+                        RESUME / <Link href="/Alexander_Grinevich_resume.pdf">DOWNLOADABLE PDF</Link> 
                     </Typography>
                 </Grid>
                 <Grid item style={{paddingBottom: '1em'}}>
