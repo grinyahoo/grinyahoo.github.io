@@ -1,33 +1,9 @@
 import React from "react"
 import uuid from 'react-uuid'
-import clsx from 'clsx'
 import {Grid} from "@material-ui/core"
-import {lime, blue} from '@material-ui/core/colors'
-import {makeStyles} from "@material-ui/core/styles"
 import './Game.css'
-import { resolve } from "path"
 
-const rndBool = () => {
-  const rnd =  Math.floor(Math.random()*100);
-  return (rnd < 50)
-}
-
-const useCellStyles = makeStyles({
-  root: {
-    backgroundColor: blue[50],
-    margin: 0,
-    flex: '1 1 auto',
-  },
-  alive: {
-    backgroundColor: lime['A400'],
-    borderRadius: '50%',
-    // boxShadow: "inset 0 -3em 3em rgba(0,0,0,0.1)", 
-    filter: "contrast(200%)"
-  },
-  dead: {
-    backgroundColor: 'transparent'
-  }
-})
+const random = require('random')
 
 const pattern = [
     [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -87,7 +63,11 @@ export default class Game extends React.Component {
       cols: 40,
       generation: 0,
     };
-    this.grid = pattern2;
+    this.grid = Array.from({
+      length: this.state.rows
+    }, () => {
+      return Array.from({length: this.state.cols}, () => {return random.boolean()})
+    });;
     this.gameOn = true;
 
   }
@@ -98,16 +78,9 @@ export default class Game extends React.Component {
 
   updateGrid = (grid) => {this.grid = grid}
 
-  playRandom = () => {
-    const {rows, cols} = this.state;
-    const newGrid = Array(rows).fill(Array.from({length: cols}, rndBool))
-    this.updateGrid(newGrid);
-  };
-
   checkGameOver = (g1, g2) => {
     if (JSON.stringify(g1) === JSON.stringify(g2)) {
       this.stopGame();
-      console.log('Game stopped')
     }
   };
 
@@ -137,13 +110,10 @@ export default class Game extends React.Component {
   }
 
   gameLoop = async () => {
-
     while (this.gameOn) {
       await this.asyncGameDelay();
       this.nextGen();
     }
-    
-    
   }
 
   liveOrDie = (row, col) => {
@@ -173,12 +143,11 @@ export default class Game extends React.Component {
   };
 
   componentDidMount() {
-    this.playRandom();
+    // this.playRandom();
     this.gameLoop();
   }
 
   render() {
-    // const classes = useGameStyles()
     return (
       <Grid container direction="column" style={{opacity: 0.8}}>
         <GameGridRow
@@ -191,9 +160,7 @@ export default class Game extends React.Component {
 }
 
 const GameCell = (props) => {
-    // const classes = useCellStyles();
     const cellState = props.status ? 'on' : 'off';
-
     return (
         <div className={`cell-box ${cellState}`} />    
     );
