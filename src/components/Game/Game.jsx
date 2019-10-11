@@ -4,6 +4,13 @@ import clsx from 'clsx'
 import {Grid} from "@material-ui/core"
 import {lime, blue} from '@material-ui/core/colors'
 import {makeStyles} from "@material-ui/core/styles"
+import './Game.css'
+import { resolve } from "path"
+
+const rndBool = () => {
+  const rnd =  Math.floor(Math.random()*100);
+  return (rnd < 50)
+}
 
 const useCellStyles = makeStyles({
   root: {
@@ -75,55 +82,74 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      speed: 500,
-      interval: {},
+      speed: 1000,
       rows: 23,
       cols: 40,
       generation: 0,
       // grid: Array(this.rows).fill(Array(this.cols).fill(false))
       grid: pattern2
     };
+    this.interval = {}
+    this.grid = pattern2
   }
+
+  
 
   arrayDeepCopy = arr => {
     return JSON.parse(JSON.stringify(arr));
   };
 
+  updateGrid = (grid) => {this.grid = grid}
+
   playRandom = () => {
-    let newGrid = Array(this.state.rows).fill(
-      Array(this.state.cols).fill(false)
-    );
-    newGrid = newGrid.map(row => {
-      return row.map(col => {
-        return Math.random() - 0.5 > 0;
-      });
-    });
-    this.setState({ grid: newGrid });
+    const {rows, cols} = this.state;
+    const newGrid = Array(rows).fill(Array.from({length: cols}, rndBool))
+    this.updateGrid(newGrid);
   };
 
-  checkGameOver = async (g1, g2) => {
+  checkGameOver = (g1, g2) => {
     if (JSON.stringify(g1) === JSON.stringify(g2)) {
       this.stopGame();
-      this.playRandom();
-      // this.startGame();
+      console.log('Game stopped')
     }
   };
 
-  nextGen = () => {
-    const { grid, generation } = this.state;
-    let newGrid = this.arrayDeepCopy(grid);
-    // let newGrid = Array(this.state.rows).fill(Array(this.state.cols).fill(true))
-    for (let i = 0; i < this.state.rows; i++)
-      for (let j = 0; j < this.state.cols; j++) {
-        newGrid[i][j] = this.liveOrDie(i, j);
-      }
+  prepareGen = () => {return new Promise((resolve, reject) => {
+    const { grid } = this;
+    const next =  grid.map((row, i) => {
+        return row.map((col, j) => {
+          return this.liveOrDie(i,j)
+        })
+    })
+    resolve(next);
+    // setTimeout(resolve(next), 1)
+  })}
 
-    this.checkGameOver(grid, newGrid);
-    this.setState({ grid: newGrid, generation: generation + 1 });
+  nextGen = async () => {
+    const { grid } = this;
+    console.log("Next gen called");
+    const t0 = Date.now();
+    const nG =  grid.map((row, i) => {
+      return row.map((col, j) => {
+        return this.liveOrDie(i,j)
+      })
+  })
+
+    // console.log('Next gen called')
+    // const nG = await this.prepareGen();
+    // console.log('Next gen ready');
+
+    this.checkGameOver(grid, nG);
+    console.log(`Next gen op time: ${Date.now() - t0} ms`)
+    this.updateGrid(nG);
+    this.setState({generation: this.state.generation + 1})
+    console.log(`w/State upd time: ${Date.now() - t0} ms`)
+    // setTimeout(this.nextGen, this.state.speed)
+    // this.nextGen();
   };
 
   liveOrDie = (row, col) => {
-    const { grid } = this.state;
+    const { grid } = this;
     let population = 0;
     for (let i = -1; i < 2; i++) {
       for (let j = -1; j < 2; j++) {
@@ -144,27 +170,25 @@ export default class Game extends React.Component {
     }
   };
 
-  clear = () => {
-    let newGrid = this.arrayDeepCopy(this.state.grid);
-    newGrid = newGrid.map(row => {
-      return row.map(col => {
-        return false;
-      });
-    });
-    this.setState({ grid: newGrid, generation: 0 });
-  };
+  // clear = () => {
+  //   const newGrid = Array(this.rows).fill(Array(this.cols).fill(false))
+    // this.setState({ grid: newGrid, generation: 0 });
+  // };
 
   stopGame = () => {
-    clearInterval(this.state.interval);
+    clearInterval(this.interval);
   };
 
   startGame = () => {
-    this.setState({ interval: setInterval(this.nextGen, this.state.speed) });
+    // this.setState({ interval: setInterval(this.nextGen, this.state.speed) });
+    this.interval = setInterval(this.nextGen, this.state.speed);
+    // this.nextGen();
   };
 
   componentDidMount() {
     this.playRandom();
     this.startGame();
+    // this.nextGen();
   }
 
   render() {
@@ -172,10 +196,8 @@ export default class Game extends React.Component {
     return (
       <Grid container direction="column" style={{opacity: 0.8}}>
         <GameGridRow
-          cols={this.state.cols}
-          grid={this.state.grid}
-          rows={this.state.rows}
-          selectBox={this.selectBox}
+          grid={this.grid}
+          gen={this.state.generation}
         />
       </Grid>
     );
@@ -183,12 +205,11 @@ export default class Game extends React.Component {
 }
 
 const GameCell = (props) => {
-    const classes = useCellStyles();
-    const {status} = props;
-  
+    // const classes = useCellStyles();
+    const cellState = props.status ? 'on' : 'off';
+
     return (
-        <div className={clsx(classes.root, status ? classes.alive : classes.dead)}
-        style={{width: '0.5rem', height: '0.5rem'}}/>    
+        <div className={`cell-box ${cellState}`} />    
     );
   }
 
@@ -196,7 +217,7 @@ const GameGridRow = (props) => {
     const renderGrid = props.grid.map((row, i) => {
       const gridRow = row.map((col, j) => {
         return (
-          <Grid item key={uuid()}>
+          <Grid item >
             <GameCell key={i + "_" + j} status={col} />
           </Grid>
         );
