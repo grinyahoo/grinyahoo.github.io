@@ -38,8 +38,8 @@ const useStyles = makeStyles(theme => ({
     hero: {
         height: '100vh',
         width: '100vw',
-        marginTop: -theme.mixins.toolbar.minHeight,
-        paddingTop: theme.mixins.toolbar.minHeight
+        paddingTop: 64,
+        marginTop: -64,
     },
     heroBaseImage: {
         background: "black url('/29088.jpg') no-repeat fixed center",
@@ -68,6 +68,9 @@ const useStyles = makeStyles(theme => ({
 const Hero = () => {
 
     const classes = useStyles();
+    const scrollTo = (selector) => {
+        document.getElementById(selector).scrollIntoView({behavior: 'smooth'});
+    }
 
     return (
         <Grid className={clsx(classes.hero, classes.heroBaseImage)} key={uuid()}>
@@ -90,7 +93,7 @@ const Hero = () => {
                         </Typography>
                     </Grid>    
                     <Grid item key={uuid()}>
-                        <Button href="#resume">
+                        <Button onClick={() => scrollTo('resume')}>
                             <PlayCircleOutlineIcon className={classes.arrow} />
                         </Button>
                         

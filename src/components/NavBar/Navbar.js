@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+
 import {ReactComponent as CupIcon} from './svg/cup.svg'
 
 const useStyles = makeStyles(theme => ({
@@ -12,7 +13,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginBottom: -theme.mixins.toolbar.minHeight
+        marginBottom: -64,
     },
     title: {
         flexGrow: 1,
@@ -24,8 +25,19 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+// const handleClick = (event, props) => props.dispatch(() => {
+//     const anchor = event.taget
+//         console.log(anchor)
+//         // if (anchor) {
+//         //   anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+//         // }
+// })
+
 const NavBar = () => {
     const classes = useStyles();
+    const scrollTo = (selector) => {
+        document.getElementById(selector).scrollIntoView({behavior: 'smooth'});
+    }
     return (
         <AppBar position="sticky" className={classes.root} shadow={3}>
             <Toolbar className={classes.title} >
@@ -34,17 +46,17 @@ const NavBar = () => {
             
             <Toolbar>
                 <Typography className={classes.links}>
-                    <Button color="inherit" href="#resume">
+                    <Button color="inherit" onClick={() => scrollTo('resume')}>
                         Resume
                     </Button>
                 </Typography>
                 <Typography className={classes.links}>
-                    <Button color="inherit" href="#work">
+                    <Button color="inherit" onClick={() => scrollTo('work')}>
                         Work
                     </Button>
                 </Typography>
                 <Typography className={classes.links}>
-                    <Button color="inherit" href="#bio" disabled>
+                    <Button color="inherit" disabled>
                         Bio
                     </Button>
                 </Typography>
