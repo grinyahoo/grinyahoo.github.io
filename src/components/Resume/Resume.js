@@ -52,9 +52,9 @@ const experience = [
 
 const useStyles = makeStyles(theme => ({
     root: {
-        paddingTop: theme.mixins.toolbar.minHeight,
         paddingBottom: "1em",
-        backgroundColor: theme.palette.background.default
+        backgroundColor: theme.palette.background.default,
+        paddingTop: 64,
     },
     
 }))
