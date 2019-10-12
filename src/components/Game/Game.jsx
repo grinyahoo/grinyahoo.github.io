@@ -1,9 +1,9 @@
 import React from "react"
 import uuid from 'react-uuid'
+import random from 'random'
 import {Grid} from "@material-ui/core"
 import './Game.css'
 
-const random = require('random')
 
 const pattern = [
     [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
